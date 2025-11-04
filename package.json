@@ -6,7 +6,8 @@
   "scripts": {
     "start": "live-server --port=3000",
     "build": "echo 'No build process needed for vanilla JS'",
-    "dev": "live-server --port=3000 --open=/index.html"
+    "dev": "live-server --port=3000 --open=/index.html",
+    "deploy": "wrangler pages deploy --project-name=mojicollect"
   },
   "keywords": [
     "japanese",
