@@ -67,15 +67,107 @@
 - Vanilla JavaScript
 - Web Audio API
 
-## 安装和运行
+## 🚀 部署指南
+
+### 本地运行
 
 ```bash
+# 克隆仓库
+git clone https://github.com/fgozxy/MojiCollect.git
+cd MojiCollect
+
 # 安装依赖
 npm install
 
 # 启动开发服务器
 npm run dev
+
+# 或者简单启动
+npm start
 ```
+
+### ☁️ Cloudflare Pages 部署（推荐）
+
+#### 🎯 方法一：通过 GitHub 自动部署（最简单）
+
+1. **Fork 本仓库**
+   - 访问 https://github.com/fgozxy/MojiCollect
+   - 点击右上角 "Fork" 按钮
+
+2. **连接 Cloudflare Pages**
+   - 访问 https://dash.cloudflare.com/pages
+   - 点击 "Create a project"
+   - 选择 "Connect to Git"
+   - 选择你 fork 的仓库
+   - 点击 "Begin setup"
+
+3. **配置部署设置**
+   ```
+   Production branch: main
+   Root directory: / (保持默认)
+   Build command: npm run build (如果没有构建过程，可以留空)
+   Build output directory: / (保持默认)
+   ```
+   - 点击 "Save and Deploy"
+
+4. **完成！** 🎉
+   - 你的网站将部署到：`https://你的仓库名.pages.dev`
+
+#### 🎯 方法二：手动上传文件
+
+1. **下载项目文件**
+   ```bash
+   git clone https://github.com/fgozxy/MojiCollect.git
+   cd MojiCollect
+   ```
+
+2. **上传到 Cloudflare Pages**
+   - 访问 https://dash.cloudflare.com/pages
+   - 点击 "Create a project"
+   - 选择 "Upload assets"
+   - 拖拽项目文件（排除 `node_modules` 文件夹）
+   - 点击 "Deploy site"
+
+#### 🎯 方法三：使用 Wrangler CLI
+
+```bash
+# 安装 Wrangler
+npm install -g wrangler
+
+# 登录 Cloudflare
+wrangler login
+
+# 部署到 Pages
+wrangler pages deploy --project-name=mojicollect
+
+# 或者使用项目脚本
+npm run deploy
+```
+
+### 🌐 其他部署平台
+
+#### GitHub Pages
+1. 进入仓库设置页面
+2. 找到 "Pages" 选项
+3. 选择 `main` 分支和 `root` 目录
+4. 点击 "Save"
+
+#### Netlify
+1. 拖拽项目文件夹到 https://app.netlify.com/drop
+2. 自动部署完成
+
+#### Vercel
+1. 连接 GitHub 仓库
+2. 自动检测为静态网站
+3. 一键部署
+
+### 📱 移动端适配
+
+项目已完全响应式设计，支持：
+- 📱 手机浏览器
+- 💻 桌面浏览器
+- 📟 平板设备
+- 🖥️ 大屏显示器
 
 ## 项目结构
 
