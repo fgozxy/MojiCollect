@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日语抽卡学习游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="title">🎴 日语抽卡学习游戏</h1>
+            <p class="subtitle">Japanese Flashcard Learning Game</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- 导航标签 -->
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="game">🎮 游戏</button>
+                <button class="nav-tab" data-tab="words">📚 单词管理</button>
+                <button class="nav-tab" data-tab="history">📊 历史记录</button>
+                <button class="nav-tab" data-tab="settings">⚙️ 设置</button>
+            </nav>
+
+            <!-- 游戏界面 -->
+            <section id="game-tab" class="tab-content active">
+                <div class="game-container">
+                    <div class="game-mode-selector">
+                        <h2>选择游戏模式</h2>
+                        <div class="mode-buttons">
+                            <button id="manual-mode" class="mode-btn active">🎯 手动模式</button>
+                            <button id="auto-mode" class="mode-btn">🤖 自动模式</button>
+                        </div>
+                    </div>
+
+                    <div class="auto-settings" id="auto-settings" style="display: none;">
+                        <div class="setting-group">
+                            <label for="card-count">一次抽取数量:</label>
+                            <select id="card-count">
+                                <option value="1">1张</option>
+                                <option value="5">5张</option>
+                                <option value="10">10张</option>
+                                <option value="20">20张</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label for="interval">间隔（秒）:</label>
+                            <select id="interval">
+                                <option value="2">2秒</option>
+                                <option value="3">3秒</option>
+                                <option value="5">5秒</option>
+                                <option value="10">10秒</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card-area">
+                        <div class="card" id="flashcard">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <div class="card-content" id="card-content">
+                                        <p class="start-message">点击抽卡按钮开始学习</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-area">
+                        <div class="input-group">
+                            <label for="japanese-input">日语:</label>
+                            <input type="text" id="japanese-input" placeholder="请输入日语">
+                        </div>
+                        <div class="input-group">
+                            <label for="kana-input">假名:</label>
+                            <input type="text" id="kana-input" placeholder="请输入平假名/片假名">
+                        </div>
+                        <div class="input-group">
+                            <label for="chinese-input">中文:</label>
+                            <input type="text" id="chinese-input" placeholder="请输入中文">
+                        </div>
+                    </div>
+
+                    <div class="game-controls">
+                        <button id="start-btn" class="btn primary">🎴 抽卡</button>
+                        <button id="check-btn" class="btn secondary" disabled>✅ 检查答案</button>
+                        <button id="skip-btn" class="btn secondary" disabled>⏭️ 跳过</button>
+                        <button id="show-answer-btn" class="btn info" disabled>👁️ 显示答案</button>
+                    </div>
+
+                    <div class="auto-controls" id="auto-controls" style="display: none;">
+                        <button id="auto-start-btn" class="btn primary">▶️ 自动开始</button>
+                        <button id="auto-stop-btn" class="btn danger" disabled>⏸️ 停止</button>
+                    </div>
+
+                    <div class="result-area" id="result-area" style="display: none;">
+                        <h3>答案核对结果</h3>
+                        <div class="result-content" id="result-content"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 单词管理界面 -->
+            <section id="words-tab" class="tab-content">
+                <div class="words-container">
+                    <h2>单词管理</h2>
+
+                    <div class="add-word-form">
+                        <h3>添加新单词</h3>
+                        <div class="form-group">
+                            <label for="new-japanese">日语:</label>
+                            <input type="text" id="new-japanese" placeholder="例: 本">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-kana">假名:</label>
+                            <input type="text" id="new-kana" placeholder="例: ほん">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-chinese">中文:</label>
+                            <input type="text" id="new-chinese" placeholder="例: 书">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-audio">音频文件:</label>
+                            <input type="file" id="new-audio" accept="audio/*">
+                        </div>
+                        <button id="add-word-btn" class="btn primary">➕ 添加单词</button>
+                    </div>
+
+                    <div class="words-list">
+                        <h3>单词列表</h3>
+                        <div class="list-controls">
+                            <input type="text" id="search-word" placeholder="搜索单词...">
+                            <span class="word-count">总计: <span id="total-words">0</span> 个单词</span>
+                        </div>
+                        <div class="words-table-container">
+                            <table class="words-table">
+                                <thead>
+                                    <tr>
+                                        <th>日语</th>
+                                        <th>假名</th>
+                                        <th>中文</th>
+                                        <th>音频</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="words-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="import-export">
+                        <h3>导入/导出</h3>
+                        <div class="import-export-controls">
+                            <button id="import-json-btn" class="btn secondary">📥 JSON导入</button>
+                            <button id="export-json-btn" class="btn secondary">📤 JSON导出</button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 历史记录界面 -->
+            <section id="history-tab" class="tab-content">
+                <div class="history-container">
+                    <h2>学习历史</h2>
+
+                    <div class="history-stats">
+                        <div class="stat-card">
+                            <h4>总练习次数</h4>
+                            <p class="stat-number" id="total-practice">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>正确率</h4>
+                            <p class="stat-number" id="accuracy-rate">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>学习的单词</h4>
+                            <p class="stat-number" id="learned-words">0</p>
+                        </div>
+                    </div>
+
+                    <div class="history-filters">
+                        <label for="date-filter">日期筛选:</label>
+                        <select id="date-filter">
+                            <option value="all">全部</option>
+                            <option value="today">今天</option>
+                            <option value="week">本周</option>
+                            <option value="month">本月</option>
+                        </select>
+                        <button id="clear-history-btn" class="btn danger">🗑️ 清除历史</button>
+                    </div>
+
+                    <div class="history-list">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>时间</th>
+                                    <th>日语</th>
+                                    <th>假名</th>
+                                    <th>中文</th>
+                                    <th>题目类型</th>
+                                    <th>结果</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 设置界面 -->
+            <section id="settings-tab" class="tab-content">
+                <div class="settings-container">
+                    <h2>设置</h2>
+
+                    <div class="setting-section">
+                        <h3>一般设置</h3>
+                        <div class="setting-group">
+                            <label for="theme">主题:</label>
+                            <select id="theme">
+                                <option value="light">浅色</option>
+                                <option value="dark">深色</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3>游戏设置</h3>
+                        <div class="setting-group">
+                            <label>
+                                <input type="checkbox" id="auto-play-audio" checked>
+                                自动播放音频
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label>
+                                <input type="checkbox" id="show-hints" checked>
+                                显示提示
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label for="default-card-type">默认出题类型:</label>
+                            <select id="default-card-type">
+                                <option value="random">随机</option>
+                                <option value="japanese">日语</option>
+                                <option value="kana">假名</option>
+                                <option value="chinese">中文</option>
+                                <option value="audio">音频</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3>卡片显示设置</h3>
+                        <p class="setting-description">只有启用的信息会在卡片上显示。禁用的信息需要用户手动输入，用于专项练习。</p>
+                        <div class="setting-group">
+                            <label>
+                                <input type="checkbox" id="enable-japanese-display" checked>
+                                显示日语
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label>
+                                <input type="checkbox" id="enable-kana-display" checked>
+                                显示假名
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label>
+                                <input type="checkbox" id="enable-chinese-display" checked>
+                                显示中文
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label>
+                                <input type="checkbox" id="enable-audio-display" checked>
+                                播放音频
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <button id="reset-display-settings" class="btn secondary">🔄 重置显示设置</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3>数据管理</h3>
+                        <div class="setting-group">
+                            <button id="backup-data-btn" class="btn secondary">💾 备份数据</button>
+                            <button id="restore-data-btn" class="btn secondary">📂 恢复数据</button>
+                            <button id="reset-all-btn" class="btn danger">🔄 重置全部</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 日语抽卡学习游戏 - 为日语学习者而生 ❤️</p>
+        </div>
+    </footer>
+
+    <!-- 音频元素 -->
+    <audio id="audio-player" preload="none"></audio>
+
+    <!-- 模态框 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/dataManager.js"></script>
+    <script src="js/audioPlayer.js"></script>
+    <script src="js/gameLogic.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

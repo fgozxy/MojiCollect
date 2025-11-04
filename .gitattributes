@@ -1,0 +1,47 @@
+# 设定默认行为，以更优雅的方式处理行结束符
+* text=auto eol=lf
+
+# 明确指定文件类型的行结束符处理
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# 二进制文件不进行任何转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.m4a binary
+*.flac binary
+
+# 编辑器和IDE配置
+.editorconfig text
+.vscode/ text linguist-generated
+.idea/ text linguist-generated
+
+# 字体文件
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# 压缩文件
+*.zip binary
+*.rar binary
+*.7z binary
+*.gz binary
+*.tar binary
+
+# 特殊文件处理
+Makefile text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf

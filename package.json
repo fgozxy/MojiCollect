@@ -1,0 +1,25 @@
+{
+  "name": "japanese-card-game",
+  "version": "1.0.0",
+  "description": "日语抽卡学习游戏 - Japanese flashcard learning game",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "build": "echo 'No build process needed for vanilla JS'",
+    "dev": "live-server --port=3000 --open=/index.html"
+  },
+  "keywords": [
+    "japanese",
+    "flashcard",
+    "learning",
+    "game",
+    "audio",
+    "quiz"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {}
+}
